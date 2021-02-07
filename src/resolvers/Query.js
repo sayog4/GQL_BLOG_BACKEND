@@ -13,7 +13,7 @@ const Query = {
     return User.find({})
   },
   async blogs(parent, { cursor }, { model: { Blog } }, info) {
-    const limit = 2
+    const limit = 4
     let hasNextPage = false
     let cursorQuery = {}
     if (cursor) {
@@ -22,6 +22,9 @@ const Query = {
     let blogs = await Blog.find(cursorQuery)
       .sort({ createdAt: -1 })
       .limit(limit + 1)
+    if (!blogs.length > 0) {
+      throw new Error('No blog posted yet!!')
+    }
     if (blogs.length > limit) {
       hasNextPage = true
       blogs = blogs.slice(0, -1)
@@ -51,7 +54,7 @@ const Query = {
   async myBlogPosts(parent, args, { model: { Blog }, req }, info) {
     const userId = getUserId(req)
 
-    const blogs = await Blog.find({ author: userId })
+    const blogs = await Blog.find({ author: userId }).sort({ createdAt: -1 })
     return blogs
   }
 }

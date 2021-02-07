@@ -83,11 +83,7 @@ const Mutation = {
     blog.excerpt = body.substring(0, 250)
     let SLUG = slugify(title).toLowerCase()
     blog.slug = SLUG
-    const slugExists = await Blog.findOne({ slug: SLUG })
-    let i = 1
-    while (slugExists) {
-      blog.slug = `${SLUG}-${i++}`
-    }
+
     blog.mtitle = `${title} | ${process.env.APP_NAME}`
     blog.mdesc = result
     blog.author = userId

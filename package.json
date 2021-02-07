@@ -1,0 +1,33 @@
+{
+  "name": "blog-backend",
+  "version": "1.0.0",
+  "description": "blog server",
+  "main": "server.js",
+  "author": "sayog",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "nodemon --ext js,graphql --exec babel-node ./src/server.js",
+    "build": "babel src --out-dir dist --copy-files"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.13",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/runtime": "^7.12.13",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.15",
+    "slugify": "^1.4.6",
+    "string-strip-html": "^8.1.0"
+  }
+}

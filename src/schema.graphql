@@ -1,0 +1,97 @@
+scalar DateTime
+
+type Query {
+  users: [User!]!
+  me: User!
+  blogs(cursor: String): BlogFeed
+  singleBlogPost(id: ID!): Post!
+  blogBySlug(slug: String!): Post!
+  myBlogPosts: [Post!]
+}
+type Mutation {
+  signUp(data: SignUpInput!): AuthPayload!
+  logIn(data: LogInInput!): AuthPayload!
+  updateUser(data: UpdateUserInput!): User!
+  deleteUser: Boolean!
+  createBlogPost(data: CreateBlogPostInput!): Post!
+  updateBlogPost(id: ID!, data: UpdateBlogPostInput!): Post!
+  deleteBlogPost(id: ID!): Boolean!
+  createComment(data: CreateCommentInput!): Comment!
+}
+type BlogFeed {
+  blogs: [Post!]
+  cursor: String!
+  hasNextPage: Boolean
+}
+
+input LogInInput {
+  email: String!
+  password: String!
+}
+
+input SignUpInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input CreateCommentInput {
+  text: String!
+  post: ID!
+}
+
+input UpdateBlogPostInput {
+  title: String
+  image: String
+  body: String
+}
+
+input CreateBlogPostInput {
+  title: String!
+  image: String!
+  body: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input UpdateUserInput {
+  name: String
+  password: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  post: [Post!]
+  comment: [Comment!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  author: User!
+  post: Post!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  body: String!
+  image: String!
+  slug: String!
+  excerpt: String!
+  mtitle: String!
+  mdesc: String!
+  author: User!
+  comment: [Comment!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
